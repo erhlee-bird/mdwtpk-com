@@ -15,11 +15,13 @@
         From the midwit peak, all you see is lowlands surrounding you.
       </marquee>
       <br/>
+      <img class="w-96" src="https://pbs.twimg.com/media/GKwzfyKakAANK5S?format=jpg" />
+      <br/>
       <audio autoplay controls src="/static/ElevenLabs_2024-04-10T21_26_03_Charlotte.mp3"></audio>
     </div>
 
     <script>
-      function playRandomAudio() {
+      function playRandomAudio(event) {
         const audioFiles = [
           "ElevenLabs_2024-04-10T21_25_36_Daniel.mp3",
           "ElevenLabs_2024-04-10T21_25_45_Callum.mp3",
@@ -43,9 +45,28 @@
         const audioFile = audioFiles[randomIndex];
         const player = document.querySelector("audio");
         player.src = "/static/" + audioFile;
+
+        // Randomly duplicate audio.
+        const randomDuplicate1 = Math.random();
+        if (randomDuplicate1 >= 0.5) {
+          const newRandomIndex = Math.floor(Math.random() * audioFiles.length);
+          const newAudioFile = audioFiles[newRandomIndex];
+          const audio = new Audio("/static/" + newAudioFile);
+          audio.addEventListener("ended", playRandomAudio);
+          audio.play();
+        }
+
+        const randomDuplicate2 = Math.random();
+        if (randomDuplicate2 >= 0.5) {
+          const newRandomIndex = Math.floor(Math.random() * audioFiles.length);
+          const newAudioFile = audioFiles[newRandomIndex];
+          const audio = new Audio("/static/" + newAudioFile);
+          audio.addEventListener("ended", playRandomAudio);
+          audio.play();
+        }
       }
 
-      // Play random audio on page load
+      // Play random audio on page load.
       document.querySelector("audio").addEventListener("ended", playRandomAudio)
       window.addEventListener("load", playRandomAudio);
     </script>
